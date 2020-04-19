@@ -1,6 +1,6 @@
 from enum import Enum
 
-
+# Aqui van los tipos de Token
 class TipoToken(Enum):
     # PALABRAS RESERVADAS main, if, then, else, end, do, while, cin, cout, real, int, boolean
     TKN_MAIN = 1  # MAIN
@@ -43,6 +43,7 @@ class TipoToken(Enum):
     TKN_EOF = 36  # fin archivo
 
 
+# Aqui van los estados
 class Estados(Enum):
     IN_MAS = 1
     IN_MENOS = 2
@@ -71,6 +72,30 @@ class Estados(Enum):
     IN_EOF = 25
     IN_COMENTARIOLINEA = 26
     IN_COMENTARIOMULTI = 27
+
+
+MAXTOKENLEN = 40
+tokenString[MAXTOKENLEN + 1] = ""
+
+# Funcion que va a tomar un nuevo caracter de el documento
+def NuevoCaracter():
+    hola = "hola"
+
+
+# Funcion que va a ver que tipo de token es:
+def getToken():
+    tokenStringIndex = 0
+    currentToken = TipoToken()
+    state = Estados.IN_START
+    save = 0
+    while state != Estados.IN_DONE:
+        c = NuevoCaracter()
+        save = True
+        if state == Estados.IN_START:
+            if c.isdigit():
+                state = Estados.IN_NUM
+            elif c.isalpha():
+                state = Estados.IN_ID
 
 
 def NuevoToken():
@@ -124,4 +149,3 @@ while cInd in range(len(cadena)):
         errores.append(errorInfo)
         tipoError = ""
         error = ""
-
