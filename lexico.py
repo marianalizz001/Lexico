@@ -74,3 +74,6 @@ class Estados(Enum):
 class Token(object):
 	
 		
+#Hola Karen
+#Como has estado?
+#Tienes coronavirus?<
