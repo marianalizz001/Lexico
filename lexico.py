@@ -108,7 +108,6 @@ def Identificador():
 def Mas():
     global token
     global index
-    salir = False
     token = " "
     if cadena[index] == "+":
         token += cadena[index]
@@ -124,7 +123,6 @@ def Mas():
 def Menos():
     global token
     global index
-    salir = False
     token = " "
     if cadena[index] == "-":
         token += cadena[index]
@@ -136,7 +134,38 @@ def Menos():
         else:
             EscribirToken("MENOS", token)
 
+def Multiplicacion():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "*":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "/":
+            token += cadena[index]
+            EscribirToken("FIN COMENTARIO", token)
+            index += 1
+        else:
+            EscribirToken("MULTIPLICACION", token)
 
+def Division():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "/":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "/":
+            token += cadena[index]
+            EscribirToken("COMENTARIO SENCILLO", token)
+            index += 1
+        elif cadena[index] == "*":
+            token += cadena[index]
+            EscribirToken("INICIO COMENTARIO", token)
+            index += 1
+        else:
+            EscribirToken("DIVISION", token)
+          
 while index < len(cadena):
     if cadena[index].isdigit():
         Numero()
@@ -149,6 +178,12 @@ while index < len(cadena):
         Anterior()
     elif cadena[index] == "-":
         Menos()
+        Anterior()
+    elif cadena[index] == "*":
+        Multiplicacion()
+        Anterior()
+    elif cadena[index] == "/":
+        Division()
         Anterior()
     index += 1
 
