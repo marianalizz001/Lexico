@@ -107,15 +107,13 @@ def Identificador():
         and cadena[index] != " "
         and cadena[index] != "\n"
     ):
-        print(cadena[index])
         EscribirError("No es un valor esperado", cadena[index])
     Verificar(token)
 
 
-def Mas():
+def Operador():
     global token
     global index
-    salir = False
     token = " "
     if cadena[index] == "+":
         token += cadena[index]
@@ -127,12 +125,6 @@ def Mas():
         else:
             EscribirToken("MAS", token)
 
-
-def Menos():
-    global token
-    global index
-    salir = False
-    token = " "
     if cadena[index] == "-":
         token += cadena[index]
         index += 1
@@ -143,81 +135,163 @@ def Menos():
         else:
             EscribirToken("MENOS", token)
 
-
-def Multiplicacion():
-    global token
-    global index
-    token = " "
     if cadena[index] == "*":
         token += cadena[index]
         index += 1
-    EscribirToken("MULTIPLICACION", token)
+        if cadena[index] == "/":
+            token += cadena[index]
+            EscribirToken("FIN COMENTARIO", token)
+            index += 1
+        else:
+            EscribirToken("MULTIPLICACION", token)
 
-
-def Division():
-    global token
-    global index
-    token = " "
-    hecho = 0
     if cadena[index] == "/":
         token += cadena[index]
         index += 1
         if cadena[index] == "/":
             token += cadena[index]
             EscribirToken("COMENTARIO SENCILLO", token)
-            while cadena[index] != "\n":
-                index += 1
+            index += 1
         elif cadena[index] == "*":
             token += cadena[index]
             EscribirToken("INICIO COMENTARIO", token)
-            while hecho == 0:
-                index += 1
-                if cadena[index] == "*":
-                    token += cadena[index]
-                    index += 1
-                    if cadena[index] == "/":
-                        token += cadena[index]
-                        EscribirToken("FIN COMENTARIO", token)
-                        index += 1
-                        hecho = 1
-
+            index += 1
         else:
             EscribirToken("DIVISION", token)
 
-
-def Residuo():
-    global token
-    global index
-    token = " "
     if cadena[index] == "%":
         token += cadena[index]
         index += 1
         EscribirToken("RESIDUO", token)
 
+def Menor():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "<":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "=":
+            token += cadena[index]
+            EscribirToken("MENOR IGUAL", token)
+            index += 1
+        else:
+            EscribirToken("MENOR", token)
 
+def Mayor():
+    global token
+    global index
+    token = " "
+    if cadena[index] == ">":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "=":
+            token += cadena[index]
+            EscribirToken("MAYOR IGUAL", token)
+            index += 1
+        else:
+            EscribirToken("MAYOR", token)
+
+def Igualdad():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "=":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "=":
+            token += cadena[index]
+            EscribirToken("IGUALDAD", token)
+            index += 1
+        else:
+            EscribirError("Se esperaba otro =", token)
+
+def Diferente():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "!":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "=":
+            token += cadena[index]
+            EscribirToken("DIFERENTE", token)
+            index += 1
+        else:
+            EscribirError("Se esperaba un =", token)
+
+def Asignacion():
+    global token
+    global index
+    token = " "
+    if cadena[index] == ":":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "=":
+            token += cadena[index]
+            EscribirToken("ASIGNACION", token)
+            index += 1
+        else:
+            EscribirError("Se esperaba un =", token)
+
+def Parentesis():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "(":
+        token += cadena[index]
+        EscribirToken("PARENTESIS IZQ", token)
+    elif cadena[index] == ")":
+        token += cadena[index]
+        EscribirToken("PARENTESIS DER", token)
+    index += 1
+
+def Llaves():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "{":
+        token += cadena[index]
+        EscribirToken("LLAVE IZQ", token)
+    elif cadena[index] == "}":
+        token += cadena[index]
+        EscribirToken("LLAVE DER", token)
+    index += 1
+          
 while index < len(cadena):
-    # global token
     if cadena[index].isdigit():
         Numero()
         Anterior()
     elif cadena[index].isalpha():
         Identificador()
         Anterior()
-    elif cadena[index] == "+":
-        Mas()
+    elif cadena[index] == "+" or cadena[index] == "-" or cadena[index] == "*" or cadena[index] == "/" or cadena[index] == "%" :
+        Operador()
         Anterior()
-    elif cadena[index] == "-":
-        Menos()
+    elif cadena[index] == "<":
+        Menor()
         Anterior()
-    elif cadena[index] == "*":
-        Multiplicacion()
+    elif cadena[index] == ">":
+        Mayor()
         Anterior()
-    elif cadena[index] == "/":
-        Division()
+    elif cadena[index] == "=":
+        Igualdad()
         Anterior()
-    elif cadena[index] == "%":
-        Residuo()
+    elif cadena[index] == "!":
+        Diferente()
         Anterior()
+    elif cadena[index] == ":":
+        Asignacion()
+        Anterior()
+    elif cadena[index] == "(" or cadena[index] == ")":
+        Parentesis()
+        Anterior()
+    elif cadena[index] == "{" or cadena[index] == "}":
+        Llaves()
+        Anterior()
+
     index += 1
+
 f_token.close()
 f_error.close()
+
