@@ -88,28 +88,29 @@ tokens = []
 def Numero():
     global token
     global index
-    print "funcion numero"
-    while cadena[index].isdigit() and index < len(cadena):
-        print "si entro al while"
-        print index
+    print("funcion numero")
+    while cadena[index].isdigit():
+        print("si entro al while")
+        print(index)
         token += cadena[index]
-        print token
+        print(token)
         index += 1
-        print index
-    print token
+        print(index)
+
+    print(token)
 
     # tokens.append(TipoToken.TKN_NUMERO)
 
 
 while index < len(cadena):
-    print len(cadena)
+    print(len(cadena))
     if cadena[index].isdigit():
-        print "si es un numero"
+        print("si es un numero")
         Numero()
 
     index += 1
 
-
+"""
 MAXTOKENLEN = 40
 tokenString[MAXTOKENLEN + 1] = ""
 
@@ -133,7 +134,7 @@ def getToken():
             elif c.isalpha():
                 state = Estados.IN_ID
 
-
+"""
 """
 def NuevoToken():
     print("Token = " + token + "\n")
