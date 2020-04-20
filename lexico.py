@@ -85,30 +85,67 @@ token = ""
 tokens = []
 
 
+def Anterior():
+    global index
+    if index < (len(cadena) - 1):
+        index -= 1
+
+
 def Numero():
     global token
     global index
-    print("funcion numero")
     while cadena[index].isdigit():
-        print("si entro al while")
-        print(index)
-        token += cadena[index]
-        print(token)
-        index += 1
-        print(index)
-
+        if index < (len(cadena) - 1):
+            token += cadena[index]
+            index += 1
+        else:
+            token += cadena[index]
+            salir = True
+    Anterior()
     print(token)
-
     # tokens.append(TipoToken.TKN_NUMERO)
 
 
-while index < len(cadena):
-    print(len(cadena))
-    if cadena[index].isdigit():
-        print("si es un numero")
-        Numero()
+def Identificador():
+    global token
+    global index
+    salir = False
+    token = ""
+    while cadena[index].isalpha() and salir == False:
+        if index < (len(cadena) - 1):
+            token += cadena[index]
+            index += 1
+        else:
+            token += cadena[index]
+            salir = True
+    print(token)
 
+
+def Mas():
+    global token
+    global index
+    salir = False
+    token = " "
+    if cadena[index] == "+":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "+":
+            token += cadena[index]
+    print(token)
+
+
+while index < len(cadena):
+    if cadena[index].isdigit():
+        print("Es un numero")
+        Numero()
+    elif cadena[index].isalpha():
+        print("Es una letra")
+        Identificador()
+    elif cadena[index] == "+":
+        print("Es un mas")
+        Mas()
     index += 1
+print("Se acabo")
 
 """
 MAXTOKENLEN = 40
