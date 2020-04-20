@@ -110,6 +110,21 @@ def Mas():
         else:
             EscribirToken("MAS", token)
 
+def Menos():
+    global token
+    global index
+    salir = False
+    token = " "
+    if cadena[index] == "-":
+        token += cadena[index]
+        index += 1
+        if cadena[index] == "-":
+            token += cadena[index]
+            EscribirToken("DECREMENTO", token)
+            index += 1
+        else:
+            EscribirToken("MENOS", token)
+
 
 while index < len(cadena):
     if cadena[index].isdigit():
@@ -120,6 +135,9 @@ while index < len(cadena):
         Anterior()
     elif cadena[index] == "+":
         Mas()
+        Anterior()
+    elif cadena[index] == "-":
+        Menos()
         Anterior()
     index += 1
 
