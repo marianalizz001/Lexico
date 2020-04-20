@@ -100,6 +100,9 @@ while index < len(cadena):
     elif cadena[index] == "+":
         Mas()
         Anterior()
+    elif cadena[index] == "-":
+        Menos()
+        Anterior()
     index += 1
 
 f_token.close()
