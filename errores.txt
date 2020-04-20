@@ -1,0 +1,2 @@
+Error(Se esperaba un numero,567.)
+Error(Se esperaba un numero,3454.)
