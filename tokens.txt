@@ -1,4 +1,5 @@
 LexToken(NUMERO,456)
+LexToken(INCREMENTO, ++)
 LexToken(MAS, +)
 LexToken(IDENTIFICADOR,csdfa)
 LexToken(NUMERO,45)
