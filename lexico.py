@@ -31,11 +31,11 @@ token = ""
 
 
 def EscribirToken(tipoToken, token):
-    f_token.write("LexToken(" + tipoToken + "," + token + ")\n")
+    f_token.write("LexToken[ " + tipoToken + "," + token + " ]\n")
 
 
 def EscribirError(tipoError, token):
-    f_error.write("Error(" + tipoError + "," + token + ")\n")
+    f_error.write("Error[ " + tipoError + "," + token + " ]\n")
 
 
 def Anterior():
