@@ -65,8 +65,12 @@ def Identificador():
     global index
     salir = False
     token = ""
-    while cadena[index].isalpha() and salir == False:
-        if index < (len(cadena) - 1):
+    print(index)
+    print(len(cadena))
+    while (
+        cadena[index].isalpha() or cadena[index].isdigit() or cadena[index] == "_"
+    ) and salir == False:
+        if index < (len(cadena) - 1) or cadena[index] != " " or cadena != "\n":
             token += cadena[index]
             index += 1
         else:
