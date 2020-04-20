@@ -1,3 +1,4 @@
+import sys
 from enum import Enum
 
 # Aqui van los tipos de Token
@@ -74,6 +75,41 @@ class Estados(Enum):
     IN_COMENTARIOMULTI = 27
 
 
+# ABRIR ARCHIVO DE TEST
+file = open("prueba.txt", "r")
+cadena = file.read()
+file.close()
+
+index = 0
+token = ""
+tokens = []
+
+
+def Numero():
+    global token
+    global index
+    print "funcion numero"
+    while cadena[index].isdigit() and index < len(cadena):
+        print "si entro al while"
+        print index
+        token += cadena[index]
+        print token
+        index += 1
+        print index
+    print token
+
+    # tokens.append(TipoToken.TKN_NUMERO)
+
+
+while index < len(cadena):
+    print len(cadena)
+    if cadena[index].isdigit():
+        print "si es un numero"
+        Numero()
+
+    index += 1
+
+
 MAXTOKENLEN = 40
 tokenString[MAXTOKENLEN + 1] = ""
 
@@ -98,8 +134,9 @@ def getToken():
                 state = Estados.IN_ID
 
 
+"""
 def NuevoToken():
-    print("Entra un nuevo token:" + token + "\n")
+    print("Token = " + token + "\n")
     if (
         token in reservadas
     ):  # Si el token esta dentro de las palabras reservadas se identifica como tal
@@ -149,3 +186,5 @@ while cInd in range(len(cadena)):
         errores.append(errorInfo)
         tipoError = ""
         error = ""
+
+"""
