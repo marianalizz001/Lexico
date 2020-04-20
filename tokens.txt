@@ -1,111 +1,49 @@
-LexToken[NUMERO,456]
-LexToken[INCREMENTO, ++]
-LexToken[MAS, +]
-LexToken[IDENTIFICADOR,csdfa]
-LexToken[IDENTIFICADOR,djfbbfn]
-LexToken[DECREMENTO, --]
-LexToken[DECREMENTO, --]
-LexToken[DECREMENTO, --]
-LexToken[MENOS, -]
-LexToken[NUMERO,4857]
-LexToken[NUMERO,45]
-LexToken[IDENTIFICADOR,flds]
-LexToken[NUMERO,54]
-LexToken[IDENTIFICADOR,variable_1]
-LexToken[NUMERO,1.2]
-LexToken[NUMERO,1234.78]
-LexToken[NUMERO,78]
-LexToken[NUMERO,45.3]
-LexToken[IDENTIFICADOR,variable_2]
-LexToken[IDENTIFICADOR,variable03]
-LexToken[IDENTIFICADOR,variable0_]
-LexToken[NUMERO,45]
-LexToken[MULTIPLICACION, *]
-LexToken[NUMERO,54]
-LexToken[NUMERO,667]
-LexToken[MULTIPLICACION, *]
-LexToken[MULTIPLICACION, *]
-LexToken[MAS, +]
-LexToken[NUMERO,76]
-LexToken[INICIO COMENTARIO, /*]
-LexToken[IDENTIFICADOR,kcdbjdkvbjkfv]
-LexToken[IDENTIFICADOR,kdvnvknv]
-LexToken[IDENTIFICADOR,vjndjvnvj]
-LexToken[IDENTIFICADOR,vknv]
-LexToken[NUMERO,98]
-LexToken[FIN COMENTARIO, */]
-LexToken[COMENTARIO SENCILLO, //]
-LexToken[IDENTIFICADOR,esto]
-LexToken[IDENTIFICADOR,es]
-LexToken[IDENTIFICADOR,un]
-LexToken[IDENTIFICADOR,comentario]
-LexToken[NUMERO,67]
-LexToken[DIVISION, /]
-LexToken[NUMERO,98]
-LexToken[NUMERO,45]
-LexToken[RESIDUO, %]
-LexToken[NUMERO,56]
-LexToken[RESIDUO, %]
-LexToken[RESIDUO, %]
-LexToken[RESIDUO, %]
-LexToken[NUMERO,56]
-LexToken[MENOR, <]
-LexToken[NUMERO,34]
-LexToken[NUMERO,98]
-LexToken[MENOR IGUAL, <=]
-LexToken[NUMERO,89]
-LexToken[MENOR, <]
-LexToken[MENOR IGUAL, <=]
-LexToken[NUMERO,56]
-LexToken[MAYOR, >]
-LexToken[NUMERO,34]
-LexToken[NUMERO,98]
-LexToken[MAYOR IGUAL, >=]
-LexToken[NUMERO,89]
-LexToken[MAYOR, >]
-LexToken[MAYOR IGUAL, >=]
-LexToken[NUMERO,45]
-LexToken[NUMERO,87]
-LexToken[NUMERO,67]
-LexToken[IGUALDAD, ==]
-LexToken[NUMERO,98]
-LexToken[IGUALDAD, ==]
-LexToken[IGUALDAD, ==]
-LexToken[NUMERO,45]
-LexToken[DIFERENTE, !=]
-LexToken[NUMERO,87]
-LexToken[NUMERO,67]
-LexToken[DIFERENTE, !=]
-LexToken[NUMERO,98]
-LexToken[DIFERENTE, !=]
-LexToken[DIFERENTE, !=]
-LexToken[NUMERO,56]
-LexToken[ASIGNACION, :=]
-LexToken[NUMERO,98]
-LexToken[NUMERO,56]
-LexToken[NUMERO,46]
-LexToken[ASIGNACION, :=]
-LexToken[ASIGNACION, :=]
-LexToken[PARENTESIS IZQ, (]
-LexToken[PARENTESIS DER, )]
-LexToken[PARENTESIS IZQ, (]
-LexToken[PARENTESIS IZQ, (]
-LexToken[PARENTESIS IZQ, (]
-LexToken[PARENTESIS IZQ, (]
-LexToken[PARENTESIS DER, )]
-LexToken[PARENTESIS DER, )]
-LexToken[PARENTESIS DER, )]
-LexToken[PARENTESIS IZQ, (]
-LexToken[IDENTIFICADOR,jshsdkfj]
-LexToken[PARENTESIS IZQ, (]
-LexToken[IDENTIFICADOR,jfghnf]
-LexToken[PARENTESIS DER, )]
-LexToken[LLAVE IZQ, {]
-LexToken[LLAVE IZQ, {]
-LexToken[IDENTIFICADOR,ejhfejf]
-LexToken[LLAVE DER, }]
-LexToken[LLAVE DER, }]
-LexToken[LLAVE IZQ, {]
-LexToken[LLAVE IZQ, {]
-LexToken[LLAVE DER, }]
-LexToken[LLAVE DER, }]
+LexToken(NUMERO,456)
+LexToken(INCREMENTO, ++)
+LexToken(MAS, +)
+LexToken(IDENTIFICADOR,csdfa)
+LexToken(IDENTIFICADOR,djfbbfn)
+LexToken(DECREMENTO, --)
+LexToken(DECREMENTO, --)
+LexToken(DECREMENTO, --)
+LexToken(MENOS, -)
+LexToken(NUMERO,4857)
+LexToken(NUMERO,45)
+LexToken(IDENTIFICADOR,flds)
+LexToken(NUMERO,54)
+LexToken(IDENTIFICADOR,variable_1)
+LexToken(NUMERO,1.2)
+LexToken(NUMERO,1234.78)
+LexToken(NUMERO,78)
+LexToken(NUMERO,45.3)
+LexToken(IDENTIFICADOR,variable_2)
+LexToken(IDENTIFICADOR,variable03)
+LexToken(IDENTIFICADOR,variable0_)
+LexToken(NUMERO,45)
+LexToken(MULTIPLICACION, *)
+LexToken(NUMERO,54)
+LexToken(NUMERO,667)
+LexToken(MULTIPLICACION, *)
+LexToken(MULTIPLICACION, *)
+LexToken(MAS, +)
+LexToken(NUMERO,76)
+LexToken(INICIO COMENTARIO, /*)
+LexToken(IDENTIFICADOR,kcdbjdkvbjkfv)
+LexToken(IDENTIFICADOR,kdvnvknv)
+LexToken(IDENTIFICADOR,vjndjvnvj)
+LexToken(IDENTIFICADOR,vknv)
+LexToken(NUMERO,98)
+LexToken(FIN COMENTARIO, */)
+LexToken(COMENTARIO SENCILLO, //)
+LexToken(IDENTIFICADOR,esto)
+LexToken(IDENTIFICADOR,es)
+LexToken(IDENTIFICADOR,un)
+LexToken(IDENTIFICADOR,comentario)
+LexToken(NUMERO,67)
+LexToken(DIVISION, /)
+LexToken(NUMERO,98)
+LexToken(NUMERO,45)
+LexToken(RESIDUO, %)
+LexToken(NUMERO,56)
+LexToken(RESIDUO, %)
+LexToken(RESIDUO, %)

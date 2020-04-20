@@ -1,11 +1,2 @@
-Error[No es un valor esperado,-]
-Error[Se esperaba un numero,567.]
-Error[Se esperaba un numero,3454.]
-Error[Se esperaba otro =, =]
-Error[Se esperaba otro =, =]
-Error[Se esperaba otro =, =]
-Error[Se esperaba un =, !]
-Error[Se esperaba un =, !]
-Error[Se esperaba un =, :]
-Error[Se esperaba otro =, =]
-Error[Se esperaba un =, :]
+Error(Se esperaba un numero,567.)
+Error(Se esperaba un numero,3454.)
