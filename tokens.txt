@@ -1,0 +1,3 @@
+LexToken(NUMERO,456)
+LexToken(NUMERO,123)
+LexToken(NUMERO,432)

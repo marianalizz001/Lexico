@@ -80,24 +80,32 @@ file = open("prueba.txt", "r")
 cadena = file.read()
 file.close()
 
+#CREAR ARCHIVO DE TOKENS
+f_token = open ('tokens.txt','wb')
+f_error = open ('errores.txt','wb')
+
+
 index = 0
-token = ""
-tokens = []
+
+def EscribirToken(tipoToken, token):
+    f_token.write('LexToken(' + tipoToken + ',' + token + ')\n')
 
 def Numero():
-    global token
     global index
-    while (index < len(cadena)):
+    token = ""
+    while (index < len(cadena) and cadena[index] != '\n'):
         if (cadena[index].isdigit):
             token += cadena[index]
             index += 1
         else:
             index -= 1
-
-    print(token)
+    EscribirToken('NUMERO',token)
     
 
 while (index < len(cadena)):
     if (cadena[index].isdigit):
         Numero()
     index += 1
+
+f_token.close()
+f_error.close()
