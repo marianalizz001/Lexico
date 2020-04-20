@@ -154,6 +154,15 @@ def Division():
             index += 1
         else:
             EscribirToken("DIVISION", token)
+
+def Residuo():
+    global token
+    global index
+    token = " "
+    if cadena[index] == "%":
+        token += cadena[index]
+        index += 1
+        EscribirToken("RESIDUO", token)
           
 while index < len(cadena):
     if cadena[index].isdigit():
@@ -173,6 +182,9 @@ while index < len(cadena):
         Anterior()
     elif cadena[index] == "/":
         Division()
+        Anterior()
+    elif cadena[index] == "%":
+        Residuo()
         Anterior()
     index += 1
 
