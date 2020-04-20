@@ -1,6 +1,19 @@
 import sys
 
-reservadas = ["main","if", "then", "else", "end", "do", "while", "cin", "cout", "real", "int", "boolean"]
+reservadas = [
+    "main",
+    "if",
+    "then",
+    "else",
+    "end",
+    "do",
+    "while",
+    "cin",
+    "cout",
+    "real",
+    "int",
+    "boolean",
+]
 
 # ABRIR ARCHIVO DE TEST
 file = open("prueba.txt", "r")
@@ -16,16 +29,20 @@ f_error = open("errores.txt", "w")
 index = 0
 token = ""
 
+
 def EscribirToken(tipoToken, token):
     f_token.write("LexToken(" + tipoToken + "," + token + ")\n")
 
+
 def EscribirError(tipoError, token):
     f_error.write("Error(" + tipoError + "," + token + ")\n")
+
 
 def Anterior():
     global index
     if index < (len(cadena) - 1):
         index -= 1
+
 
 def Numero():
     global token
@@ -53,20 +70,19 @@ def Numero():
             else:
                 token += cadena[index]
                 salir = True
-        if (not cadena[index].isdigit() and cadena[index] != '\n'):
+        if not cadena[index].isdigit() and cadena[index] != "\n":
             EscribirError("Se esperaba un numero", token)
             salir = True
             band = 1
-    if (band == 0):
+    if band == 0:
         EscribirToken("NUMERO", token)
+
 
 def Identificador():
     global token
     global index
     salir = False
     token = ""
-    print(index)
-    print(len(cadena))
     while (
         cadena[index].isalpha() or cadena[index].isdigit() or cadena[index] == "_"
     ) and salir == False:
@@ -77,6 +93,7 @@ def Identificador():
             token += cadena[index]
             salir = True
     EscribirToken("IDENTIFICADOR", token)
+
 
 def Mas():
     global token
