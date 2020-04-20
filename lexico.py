@@ -44,6 +44,13 @@ def Anterior():
         index -= 1
 
 
+def Verificar(token_id):
+    if token_id in reservadas:
+        EscribirToken("PALABRA RESERVADA", token_id)
+    else:
+        EscribirToken("IDENTIFICADOR", token)
+
+
 def Numero():
     global token
     global index
@@ -83,21 +90,32 @@ def Identificador():
     global index
     salir = False
     token = ""
+    band = 0
     while (
         cadena[index].isalpha() or cadena[index].isdigit() or cadena[index] == "_"
     ) and salir == False:
-        if index < (len(cadena) - 1) or cadena[index] != " " or cadena != "\n":
+        if index < (len(cadena) - 1) or cadena[index] != " " or cadena[index] != "\n":
             token += cadena[index]
             index += 1
         else:
             token += cadena[index]
             salir = True
-    EscribirToken("IDENTIFICADOR", token)
+    if (
+        cadena[index] != "_"
+        and (not cadena[index].isdigit())
+        and (not cadena[index].isalpha())
+        and cadena[index] != " "
+        and cadena[index] != "\n"
+    ):
+        print(cadena[index])
+        EscribirError("No es un valor esperado", cadena[index])
+    Verificar(token)
 
 
 def Mas():
     global token
     global index
+    salir = False
     token = " "
     if cadena[index] == "+":
         token += cadena[index]
@@ -109,9 +127,11 @@ def Mas():
         else:
             EscribirToken("MAS", token)
 
+
 def Menos():
     global token
     global index
+    salir = False
     token = " "
     if cadena[index] == "-":
         token += cadena[index]
@@ -123,6 +143,7 @@ def Menos():
         else:
             EscribirToken("MENOS", token)
 
+
 def Multiplicacion():
     global token
     global index
@@ -130,30 +151,39 @@ def Multiplicacion():
     if cadena[index] == "*":
         token += cadena[index]
         index += 1
-        if cadena[index] == "/":
-            token += cadena[index]
-            EscribirToken("FIN COMENTARIO", token)
-            index += 1
-        else:
-            EscribirToken("MULTIPLICACION", token)
+    EscribirToken("MULTIPLICACION", token)
+
 
 def Division():
     global token
     global index
     token = " "
+    hecho = 0
     if cadena[index] == "/":
         token += cadena[index]
         index += 1
         if cadena[index] == "/":
             token += cadena[index]
             EscribirToken("COMENTARIO SENCILLO", token)
-            index += 1
+            while cadena[index] != "\n":
+                index += 1
         elif cadena[index] == "*":
             token += cadena[index]
             EscribirToken("INICIO COMENTARIO", token)
-            index += 1
+            while hecho == 0:
+                index += 1
+                if cadena[index] == "*":
+                    token += cadena[index]
+                    index += 1
+                    if cadena[index] == "/":
+                        token += cadena[index]
+                        EscribirToken("FIN COMENTARIO", token)
+                        index += 1
+                        hecho = 1
+
         else:
             EscribirToken("DIVISION", token)
+
 
 def Residuo():
     global token
@@ -163,8 +193,10 @@ def Residuo():
         token += cadena[index]
         index += 1
         EscribirToken("RESIDUO", token)
-          
+
+
 while index < len(cadena):
+    # global token
     if cadena[index].isdigit():
         Numero()
         Anterior()
@@ -187,6 +219,5 @@ while index < len(cadena):
         Residuo()
         Anterior()
     index += 1
-
 f_token.close()
 f_error.close()
