@@ -83,15 +83,25 @@ def Identificador():
     global index
     salir = False
     token = ""
+    band = 0
     while (
         cadena[index].isalpha() or cadena[index].isdigit() or cadena[index] == "_"
     ) and salir == False:
-        if index < (len(cadena) - 1) or cadena[index] != " " or cadena != "\n":
+        if index < (len(cadena) - 1) or cadena[index] != " " or cadena[index] != "\n":
             token += cadena[index]
             index += 1
         else:
             token += cadena[index]
             salir = True
+    if (
+        cadena[index] != "_"
+        and (not cadena[index].isdigit())
+        and (not cadena[index].isalpha())
+        and cadena[index] != " "
+        and cadena[index] != "\n"
+    ):
+        print(cadena[index])
+        EscribirError("No es un valor esperado", cadena[index])
     EscribirToken("IDENTIFICADOR", token)
 
 
@@ -109,6 +119,7 @@ def Mas():
             index += 1
         else:
             EscribirToken("MAS", token)
+
 
 def Menos():
     global token
