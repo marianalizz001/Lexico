@@ -44,6 +44,13 @@ def Anterior():
         index -= 1
 
 
+def Verificar(token_id):
+    if token_id in reservadas:
+        EscribirToken("PALABRA RESERVADA", token_id)
+    else:
+        EscribirToken("IDENTIFICADOR", token)
+
+
 def Numero():
     global token
     global index
@@ -101,12 +108,14 @@ def Identificador():
         and cadena[index] != "\n"
     ):
         EscribirError("No es un valor esperado", cadena[index])
-    EscribirToken("IDENTIFICADOR", token)
+    Verificar(token)
 
 def Operador():
     global token
     global index
+    salir = False
     token = " "
+    hecho = 0
     if cadena[index] == "+":
         token += cadena[index]
         index += 1
@@ -130,12 +139,8 @@ def Operador():
     if cadena[index] == "*":
         token += cadena[index]
         index += 1
-        if cadena[index] == "/":
-            token += cadena[index]
-            EscribirToken("FIN COMENTARIO", token)
-            index += 1
-        else:
-            EscribirToken("MULTIPLICACION", token)
+    EscribirToken("MULTIPLICACION", token)
+
 
     if cadena[index] == "/":
         token += cadena[index]
@@ -143,11 +148,22 @@ def Operador():
         if cadena[index] == "/":
             token += cadena[index]
             EscribirToken("COMENTARIO SENCILLO", token)
-            index += 1
+            while cadena[index] != "\n":
+                index += 1
         elif cadena[index] == "*":
             token += cadena[index]
             EscribirToken("INICIO COMENTARIO", token)
-            index += 1
+            while hecho == 0:
+                index += 1
+                if cadena[index] == "*":
+                    token += cadena[index]
+                    index += 1
+                    if cadena[index] == "/":
+                        token += cadena[index]
+                        EscribirToken("FIN COMENTARIO", token)
+                        index += 1
+                        hecho = 1
+
         else:
             EscribirToken("DIVISION", token)
 
@@ -251,6 +267,7 @@ def Llaves():
     index += 1
           
 while index < len(cadena):
+    # global token
     if cadena[index].isdigit():
         Numero()
         Anterior()
@@ -283,6 +300,5 @@ while index < len(cadena):
         Anterior()
 
     index += 1
-
 f_token.close()
 f_error.close()
