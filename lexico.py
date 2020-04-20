@@ -80,9 +80,16 @@ file = open("prueba.txt", "r")
 cadena = file.read()
 file.close()
 
+# CREAR ARCHIVO DE TOKENS
+f_token = open("tokens.txt", "wb")
+f_error = open("errores.txt", "wb")
+
+
 index = 0
-token = ""
-tokens = []
+
+
+def EscribirToken(tipoToken, token):
+    f_token.write("LexToken(" + str(tipoToken) + "," + str(token) + ")\n")
 
 
 def Anterior():
@@ -92,7 +99,6 @@ def Anterior():
 
 
 def Numero():
-    global token
     global index
     while cadena[index].isdigit():
         if index < (len(cadena) - 1):
@@ -144,85 +150,21 @@ while index < len(cadena):
     elif cadena[index] == "+":
         print("Es un mas")
         Mas()
+    token = ""
+    while index < len(cadena) and cadena[index] != "\n":
+        if cadena[index].isdigit:
+            token += cadena[index]
+            index += 1
+        else:
+            index -= 1
+    EscribirToken("NUMERO", token)
+
+
+while index < len(cadena):
+    if cadena[index].isdigit:
+        Numero()
     index += 1
 print("Se acabo")
 
-"""
-MAXTOKENLEN = 40
-tokenString[MAXTOKENLEN + 1] = ""
-
-# Funcion que va a tomar un nuevo caracter de el documento
-def NuevoCaracter():
-    hola = "hola"
-
-
-# Funcion que va a ver que tipo de token es:
-def getToken():
-    tokenStringIndex = 0
-    currentToken = TipoToken()
-    state = Estados.IN_START
-    save = 0
-    while state != Estados.IN_DONE:
-        c = NuevoCaracter()
-        save = True
-        if state == Estados.IN_START:
-            if c.isdigit():
-                state = Estados.IN_NUM
-            elif c.isalpha():
-                state = Estados.IN_ID
-
-"""
-"""
-def NuevoToken():
-    print("Token = " + token + "\n")
-    if (
-        token in reservadas
-    ):  # Si el token esta dentro de las palabras reservadas se identifica como tal
-        tipoToken = "Palabra reservada"
-    tokenInfo = [tInd, token, tipoToken]
-    tokens.append(tokenInfo)
-    tipoToken = ""
-    token = ""
-
-
-while cInd in range(len(cadena)):
-    # TOKENS NUMERICOS
-    if cadena[cInd] in numeros:
-        Numeros()
-    # TOKENS DE COMENTARIOS Y DIVISION
-    elif cadena[cInd] == "/":
-        Comentario()
-    # TOKEN PARA IDENTIFICADOR
-    elif cadena[cInd] in letras:
-        Identificador()
-    # SUMA Y... DOBLE SUMA jeje, RESTA Y... DOBLE RESTA jeje, MULTIPLICACION, RESIDUO, MENOR/MENOR IGUAL, MAYOR/MAYOR IGUAL, IGUALDAD Y ASIGNACION
-    elif (
-        cadena[cInd] == "+"
-        or cadena[cInd] == "-"
-        or cadena[cInd] == "*"
-        or cadena[cInd] == "%"
-        or cadena[cInd] == "<"
-        or cadena[cInd] == ">"
-        or cadena[cInd] == "="
-    ):
-        Operador()
-    # PARENTESIS; CORCHETES Y LLAVES
-    elif cadena[cInd] == "(":
-        Coleccion()
-    # ESPACIOS VACIOS
-    elif cadena[cInd] == " ":
-        cInd += 1
-    # SALTOS DE LINEA
-    elif "\n" in cadena[cInd]:
-        SaltoLinea()
-    # Identifica si se encontro algun token y lo ingresa en el arreglo#
-    if len(token) != 0 and tipoToken != "":  # Nuevo token
-        NuevoToken()
-    if len(error) != 0 and tipoError != "":  # Nuevo error
-        print("Entra un nuevo error:" + token + "\n")
-        errorInfo = [tInd, error, tipoError]
-        errores.append(errorInfo)
-        tipoError = ""
-        error = ""
-
-"""
+f_token.close()
+f_error.close()
