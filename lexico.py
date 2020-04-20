@@ -86,6 +86,7 @@ f_error = open("errores.txt", "wb")
 
 
 index = 0
+token = ""
 
 
 def EscribirToken(tipoToken, token):
@@ -99,16 +100,19 @@ def Anterior():
 
 
 def Numero():
+    global token
     global index
-    while cadena[index].isdigit():
+    token = ""
+    salir = False
+    while cadena[index].isdigit() and salir == False:
         if index < (len(cadena) - 1):
             token += cadena[index]
             index += 1
         else:
             token += cadena[index]
             salir = True
-    Anterior()
     print(token)
+    # EscribirToken("NUMERO", token)
     # tokens.append(TipoToken.TKN_NUMERO)
 
 
@@ -144,25 +148,15 @@ while index < len(cadena):
     if cadena[index].isdigit():
         print("Es un numero")
         Numero()
+        Anterior()
     elif cadena[index].isalpha():
         print("Es una letra")
         Identificador()
+        Anterior()
     elif cadena[index] == "+":
         print("Es un mas")
         Mas()
-    token = ""
-    while index < len(cadena) and cadena[index] != "\n":
-        if cadena[index].isdigit:
-            token += cadena[index]
-            index += 1
-        else:
-            index -= 1
-    EscribirToken("NUMERO", token)
-
-
-while index < len(cadena):
-    if cadena[index].isdigit:
-        Numero()
+        Anterior()
     index += 1
 print("Se acabo")
 
