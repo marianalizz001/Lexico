@@ -112,7 +112,7 @@ def Numero():
             token += cadena[index]
             salir = True
     print(token)
-    # EscribirToken("NUMERO", token)
+    EscribirToken("NUMERO", token)
     # tokens.append(TipoToken.TKN_NUMERO)
 
 
@@ -128,6 +128,7 @@ def Identificador():
         else:
             token += cadena[index]
             salir = True
+    EscribirToken("IDENTIFICADOR", token)
     print(token)
 
 
@@ -142,6 +143,7 @@ def Mas():
         if cadena[index] == "+":
             token += cadena[index]
     print(token)
+    EscribirToken("MAS", token)
 
 
 while index < len(cadena):

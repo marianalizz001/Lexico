@@ -1,0 +1,6 @@
+LexToken(NUMERO,456)
+LexToken(MAS, +)
+LexToken(IDENTIFICADOR,csdfa)
+LexToken(NUMERO,45)
+LexToken(IDENTIFICADOR,flds)
+LexToken(NUMERO,54)
