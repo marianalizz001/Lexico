@@ -84,6 +84,10 @@ def Numero():
         token += cadena[index]
         index += 1
         cont_puntos += 1
+        if not cadena[index].isdigit():
+            salir = True
+            EscribirError("Se esperaba un numero", token)
+            band = 1
         while cadena[index].isdigit() and salir == False:
             if index < (len(cadena) - 1):
                 token += cadena[index]
@@ -91,10 +95,13 @@ def Numero():
             else:
                 token += cadena[index]
                 salir = True
+        """
         if not cadena[index].isdigit() and cadena[index] != "\n":
             EscribirError("Se esperaba un numero", token)
             salir = True
             band = 1
+        """
+
     if band == 0:
         EscribirToken("NUMERO", token)
 
