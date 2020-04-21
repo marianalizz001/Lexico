@@ -22,14 +22,14 @@ file.close()
 
 # CREAR ARCHIVO DE TOKENS
 f_token = open(
-    "C:\\Users\\maria\\Desktop\\CompiLexico\\IdeCompilador\\src\\idecompilador\\tokens.txt",
-    "w",
+    #"C:\\Users\\maria\\Desktop\\CompiLexico\\IdeCompilador\\src\\idecompilador\\tokens.txt","w",
+    "/Users/KarenMarquez/NetBeansProjects/IdeCompilador/src/idecompilador/tokens.txt","w", 
 )
 
 # CREAR ARCHIVO DE ERRORES
 f_error = open(
-    "C:\\Users\\maria\\Desktop\\CompiLexico\\IdeCompilador\\src\\idecompilador\\errores.txt",
-    "w",
+    #"C:\\Users\\maria\\Desktop\\CompiLexico\\IdeCompilador\\src\\idecompilador\\errores.txt","w",
+    "/Users/KarenMarquez/NetBeansProjects/IdeCompilador/src/idecompilador/errores.txt", "w",
 )
 
 index = 0
@@ -41,7 +41,7 @@ def EscribirToken(tipoToken, token):
 
 
 def EscribirError(tipoError, token):
-    f_error.write("Error[ " + tipoError + "," + token + " ]\n")
+    f_error.write("LexError[ " + tipoError + "," + token + " ]\n")
 
 
 def Anterior():
@@ -64,7 +64,6 @@ def Otro():
     token += cadena[index]
     EscribirError("Caracter invalido", token)
     index += 1
-
 
 def Numero():
     global token
@@ -221,12 +220,11 @@ def Igualdad():
     if cadena[index] == "=":
         token += cadena[index]
         index += 1
+        EscribirToken("IGUAL", token)
         if cadena[index] == "=":
             token += cadena[index]
             EscribirToken("COMPARADOR", token)
             index += 1
-        else:
-            EscribirError("Se esperaba otro =", token)
 
 
 def Diferente():
@@ -284,6 +282,22 @@ def Llaves():
         EscribirToken("LLAVE DER", token)
     index += 1
 
+def Puntos():
+    global token
+    global index
+    token = " "
+    if cadena[index] == ".":
+        token += cadena[index]
+        index += 1
+        EscribirToken("PUNTO", token)
+    if cadena[index] == ",":
+        token += cadena[index]
+        index += 1
+        EscribirToken("COMA", token)
+    if cadena[index] == ";":
+        token += cadena[index]
+        index += 1
+        EscribirToken("PUNTOYCOMA", token)
 
 while index < len(cadena):
     entrar = 0
@@ -331,6 +345,10 @@ while index < len(cadena):
         entrar = 1
     elif cadena[index] == "{" or cadena[index] == "}":
         Llaves()
+        Anterior()
+        entrar = 1
+    elif cadena[index] == "." or cadena[index] == "," or cadena[index] == ";":
+        Puntos()
         Anterior()
         entrar = 1
     if entrar == 0 and cadena[index] != " " and cadena[index] != "\n":
