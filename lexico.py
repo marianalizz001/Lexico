@@ -95,12 +95,6 @@ def Numero():
             else:
                 token += cadena[index]
                 salir = True
-        """
-        if not cadena[index].isdigit() and cadena[index] != "\n":
-            EscribirError("Se esperaba un numero", token)
-            salir = True
-            band = 1
-        """
 
     if band == 0:
         EscribirToken("NUMERO", token)
@@ -137,7 +131,7 @@ def Operador():
             index += 1
         else:
             EscribirToken("MAS", token)
-
+    token = " "
     if cadena[index] == "-":
         token += cadena[index]
         index += 1
@@ -147,7 +141,7 @@ def Operador():
             index += 1
         else:
             EscribirToken("MENOS", token)
-
+    token = " "
     if cadena[index] == "*":
         token += cadena[index]
         index += 1
@@ -157,7 +151,7 @@ def Operador():
             index += 1
         else:
             EscribirToken("MULTIPLICACION", token)
-
+    token = " "
     if cadena[index] == "/":
         token += cadena[index]
         index += 1
@@ -183,7 +177,7 @@ def Operador():
                         hecho = 1
         else:
             EscribirToken("DIVISION", token)
-
+    token = " "
     if cadena[index] == "%":
         token += cadena[index]
         index += 1
