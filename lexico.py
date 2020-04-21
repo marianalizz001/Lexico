@@ -16,15 +16,21 @@ reservadas = [
 ]
 
 # ABRIR ARCHIVO DE TEST
-file = open("prueba.txt", "r")
+file = open(sys.argv[1], "r")
 cadena = file.read()
 file.close()
 
 # CREAR ARCHIVO DE TOKENS
-f_token = open("tokens.txt", "w")
+f_token = open(
+    "C:\\Users\\maria\\Desktop\\CompiLexico\\IdeCompilador\\src\\idecompilador\\tokens.txt",
+    "w",
+)
 
 # CREAR ARCHIVO DE ERRORES
-f_error = open("errores.txt", "w")
+f_error = open(
+    "C:\\Users\\maria\\Desktop\\CompiLexico\\IdeCompilador\\src\\idecompilador\\errores.txt",
+    "w",
+)
 
 index = 0
 token = ""
@@ -49,6 +55,15 @@ def Verificar(token_id):
         EscribirToken("PALABRA RESERVADA", token_id)
     else:
         EscribirToken("IDENTIFICADOR", token)
+
+
+def Otro():
+    global token
+    global index
+    token = ""
+    token += cadena[index]
+    EscribirError("Caracter invalido", token)
+    index += 1
 
 
 def Numero():
@@ -100,14 +115,6 @@ def Identificador():
         else:
             token += cadena[index]
             salir = True
-    if (
-        cadena[index] != "_"
-        and (not cadena[index].isdigit())
-        and (not cadena[index].isalpha())
-        and cadena[index] != " "
-        and cadena[index] != "\n"
-    ):
-        EscribirError("No es un valor esperado", cadena[index])
     Verificar(token)
 
 
@@ -279,12 +286,15 @@ def Llaves():
 
 
 while index < len(cadena):
+    entrar = 0
     if cadena[index].isdigit():
         Numero()
         Anterior()
+        entrar = 1
     elif cadena[index].isalpha():
         Identificador()
         Anterior()
+        entrar = 1
     elif (
         cadena[index] == "+"
         or cadena[index] == "-"
@@ -294,26 +304,37 @@ while index < len(cadena):
     ):
         Operador()
         Anterior()
+        entrar = 1
     elif cadena[index] == "<":
         Menor()
         Anterior()
+        entrar = 1
     elif cadena[index] == ">":
         Mayor()
         Anterior()
+        entrar = 1
     elif cadena[index] == "=":
         Igualdad()
         Anterior()
+        entrar = 1
     elif cadena[index] == "!":
         Diferente()
         Anterior()
+        entrar = 1
     elif cadena[index] == ":":
         Asignacion()
         Anterior()
+        entrar = 1
     elif cadena[index] == "(" or cadena[index] == ")":
         Parentesis()
         Anterior()
+        entrar = 1
     elif cadena[index] == "{" or cadena[index] == "}":
         Llaves()
+        Anterior()
+        entrar = 1
+    if entrar == 0 and cadena[index] != " " and cadena[index] != "\n":
+        Otro()
         Anterior()
 
     index += 1
