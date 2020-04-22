@@ -18,6 +18,7 @@ reservadas = [
 # ABRIR ARCHIVO DE TEST
 
 file = open(sys.argv[1], "r")
+#file = open("prueba.txt", "r")
 cadena = file.read()
 file.close()
 
@@ -35,20 +36,24 @@ f_error = open(
 
 index = 0
 linea = 1
-columna = 1
+columna = 0
 token = ""
 
 
 def EscribirToken(tipoToken, token, linea, columna):
     f_token.write("LexToken [ " + tipoToken + " , " + token + " , lin. " + str(linea) + " , col. " + str(columna)+ " ]\n")
+    #print("LexToken [ " + tipoToken + " , " + token + " , lin. " + str(linea) + " , col. " + str(columna)+ " ]\n")
 
 def EscribirError(tipoError, token, linea, columna):
     f_error.write("LexError [ " + tipoError + " , " + token + " , lin. " + str(linea) + " , col. " + str(columna)+ " ]\n")
+    #print("LexError [ " + tipoError + " , " + token + " , lin. " + str(linea) + " , col. " + str(columna)+ " ]\n")
 
 def Anterior():
     global index
+    global columna
     if index < (len(cadena) - 1):
         index -= 1
+        columna += 1
 
 def Verificar(token_id):
     global columna
@@ -82,10 +87,10 @@ def Numero():
     cont_puntos = 0
     band = 0
     while cadena[index].isdigit() and salir == False:
-        columna += 1
         if index < (len(cadena) - 1):
             token += cadena[index]
             index += 1
+            columna += 1
         else:
             token += cadena[index]
             salir = True
@@ -101,10 +106,10 @@ def Numero():
             EscribirError("Se esperaba un numero", token, linea, columna)
             band = 1
         while cadena[index].isdigit() and salir == False:
-            columna += 1
             if index < (len(cadena) - 1):
                 token += cadena[index]
                 index += 1
+                columna += 1
             else:
                 token += cadena[index]
                 salir = True
@@ -149,9 +154,9 @@ def Operador():
         columna += 1
         if cadena[index] == "+":
             token += cadena[index]
-            EscribirToken("INCREMENTO", token, linea, columna)
             index += 1
             columna += 1
+            EscribirToken("INCREMENTO", token, linea, columna)
         else:
             EscribirToken("MAS", token, linea, columna)
     token = " "
@@ -161,9 +166,9 @@ def Operador():
         columna += 1
         if cadena[index] == "-":
             token += cadena[index]
-            EscribirToken("DECREMENTO", token, linea, columna)
             index += 1
             columna += 1
+            EscribirToken("DECREMENTO", token, linea, columna)
         else:
             EscribirToken("MENOS", token, linea, columna)
     token = " "
@@ -229,9 +234,9 @@ def Menor():
         columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("MENOR IGUAL", token, linea, columna)
             index += 1
             columna += 1
+            EscribirToken("MENOR IGUAL", token, linea, columna)
         else:
             EscribirToken("MENOR", token, linea, columna)
 
@@ -248,9 +253,9 @@ def Mayor():
         columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("MAYOR IGUAL", token, linea, columna)
             index += 1
             columna += 1
+            EscribirToken("MAYOR IGUAL", token, linea, columna)
         else:
             EscribirToken("MAYOR", token, linea, columna)
 
@@ -267,9 +272,9 @@ def Igualdad():
         columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("COMPARADOR", token, linea, columna)
             index += 1
             columna += 1
+            EscribirToken("COMPARADOR", token, linea, columna)
         else:
             EscribirError("Se esperaba un =", token, linea, columna)
 
@@ -286,9 +291,9 @@ def Diferente():
         columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("DIFERENTE", token, linea, columna)
             index += 1
             columna += 1
+            EscribirToken("DIFERENTE", token, linea, columna)
         else:
             EscribirError("Se esperaba un =", token, linea, columna)
 
@@ -305,9 +310,9 @@ def Asignacion():
         columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("ASIGNACION", token, linea, columna)
             index += 1
             columna += 1
+            EscribirToken("ASIGNACION", token, linea, columna)
         else:
             EscribirError("Se esperaba un =", token, linea, columna)
 
@@ -365,7 +370,7 @@ while index < len(cadena):
     entrar = 0
     if cadena[index] == "\n":
         linea += 1
-        columna = 1
+        columna = 0
     entrar = 0
     if cadena[index].isdigit():
         Numero()
