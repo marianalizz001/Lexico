@@ -70,6 +70,7 @@ def Numero():
     global index
     token = ""
     salir = False
+    flotante = False
     cont_puntos = 0
     band = 0
     while cadena[index].isdigit() and salir == False:
@@ -80,6 +81,7 @@ def Numero():
             token += cadena[index]
             salir = True
     if cadena[index] == "." and cont_puntos == 0:
+        flotante = True
         salir = False
         token += cadena[index]
         index += 1
@@ -97,7 +99,10 @@ def Numero():
                 salir = True
 
     if band == 0:
-        EscribirToken("NUMERO", token)
+        if (flotante == True):
+            EscribirToken("NUMERO FLOTANTE", token)
+        else:
+            EscribirToken("NUMERO", token)
 
 
 def Identificador():
@@ -147,7 +152,7 @@ def Operador():
         index += 1
         if cadena[index] == "/":
             token += cadena[index]
-            EscribirToken("FIN COMENTARIO", token)
+            #EscribirToken("FIN COMENTARIO", token)
             index += 1
         else:
             EscribirToken("MULTIPLICACION", token)
@@ -158,12 +163,12 @@ def Operador():
         hecho = 0
         if cadena[index] == "/":
             token += cadena[index]
-            EscribirToken("COMENTARIO SENCILLO", token)
+            #EscribirToken("COMENTARIO SENCILLO", token)
             while cadena[index] != "\n":
                 index += 1
         elif cadena[index] == "*":
             token += cadena[index]
-            EscribirToken("INICIO COMENTARIO", token)
+            #EscribirToken("INICIO COMENTARIO", token)
             while hecho == 0:
                 index += 1
                 if cadena[index] == "*":
@@ -172,7 +177,7 @@ def Operador():
                     index += 1
                     if cadena[index] == "/":
                         token += cadena[index]
-                        EscribirToken("FIN COMENTARIO", token)
+                        #EscribirToken("FIN COMENTARIO", token)
                         index += 1
                         hecho = 1
         else:
@@ -221,11 +226,12 @@ def Igualdad():
     if cadena[index] == "=":
         token += cadena[index]
         index += 1
-        EscribirToken("IGUAL", token)
         if cadena[index] == "=":
             token += cadena[index]
             EscribirToken("COMPARADOR", token)
             index += 1
+        else:
+            EscribirError("Se esperaba un =", token)
 
 
 def Diferente():
