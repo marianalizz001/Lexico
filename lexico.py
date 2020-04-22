@@ -16,6 +16,7 @@ reservadas = [
 ]
 
 # ABRIR ARCHIVO DE TEST
+
 file = open(sys.argv[1], "r")
 cadena = file.read()
 file.close()
@@ -33,47 +34,55 @@ f_error = open(
 )
 
 index = 0
+linea = 1
+columna = 1
 token = ""
 
 
-def EscribirToken(tipoToken, token):
-    f_token.write("LexToken[ " + tipoToken + "," + token + " ]\n")
+def EscribirToken(tipoToken, token, linea, columna):
+    f_token.write("LexToken [ " + tipoToken + " , " + token + " , lin. " + str(linea) + " , col. " + str(columna)+ " ]\n")
 
-
-def EscribirError(tipoError, token):
-    f_error.write("LexError[ " + tipoError + "," + token + " ]\n")
-
+def EscribirError(tipoError, token, linea, columna):
+    f_error.write("LexError [ " + tipoError + " , " + token + " , lin. " + str(linea) + " , col. " + str(columna)+ " ]\n")
 
 def Anterior():
     global index
     if index < (len(cadena) - 1):
         index -= 1
 
-
 def Verificar(token_id):
+    global columna
+    global linea
+
     if token_id in reservadas:
-        EscribirToken("PALABRA RESERVADA", token_id)
+        EscribirToken("PALABRA RESERVADA", token_id, linea, columna)
     else:
-        EscribirToken("IDENTIFICADOR", token)
+        EscribirToken("IDENTIFICADOR", token, linea, columna)
 
 
 def Otro():
     global token
     global index
+    global columna
+    global linea
     token = ""
     token += cadena[index]
-    EscribirError("Caracter invalido", token)
+    EscribirError("Caracter invalido", token, linea, columna)
     index += 1
+    columna -= 1
 
 def Numero():
     global token
     global index
+    global columna
+    global linea
     token = ""
     salir = False
     flotante = False
     cont_puntos = 0
     band = 0
     while cadena[index].isdigit() and salir == False:
+        columna += 1
         if index < (len(cadena) - 1):
             token += cadena[index]
             index += 1
@@ -81,6 +90,7 @@ def Numero():
             token += cadena[index]
             salir = True
     if cadena[index] == "." and cont_puntos == 0:
+        columna += 1
         flotante = True
         salir = False
         token += cadena[index]
@@ -88,9 +98,10 @@ def Numero():
         cont_puntos += 1
         if not cadena[index].isdigit():
             salir = True
-            EscribirError("Se esperaba un numero", token)
+            EscribirError("Se esperaba un numero", token, linea, columna)
             band = 1
         while cadena[index].isdigit() and salir == False:
+            columna += 1
             if index < (len(cadena) - 1):
                 token += cadena[index]
                 index += 1
@@ -100,14 +111,16 @@ def Numero():
 
     if band == 0:
         if (flotante == True):
-            EscribirToken("NUMERO FLOTANTE", token)
+            EscribirToken("NUMERO FLOTANTE", token, linea, columna)
         else:
-            EscribirToken("NUMERO", token)
+            EscribirToken("NUMERO", token, linea, columna)
 
 
 def Identificador():
     global token
     global index
+    global columna
+    global linea
     salir = False
     token = ""
     band = 0
@@ -117,6 +130,7 @@ def Identificador():
         if index < (len(cadena) - 1) or cadena[index] != " " or cadena[index] != "\n":
             token += cadena[index]
             index += 1
+            columna += 1
         else:
             token += cadena[index]
             salir = True
@@ -126,187 +140,232 @@ def Identificador():
 def Operador():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == "+":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "+":
             token += cadena[index]
-            EscribirToken("INCREMENTO", token)
+            EscribirToken("INCREMENTO", token, linea, columna)
             index += 1
+            columna += 1
         else:
-            EscribirToken("MAS", token)
+            EscribirToken("MAS", token, linea, columna)
     token = " "
     if cadena[index] == "-":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "-":
             token += cadena[index]
-            EscribirToken("DECREMENTO", token)
+            EscribirToken("DECREMENTO", token, linea, columna)
             index += 1
+            columna += 1
         else:
-            EscribirToken("MENOS", token)
+            EscribirToken("MENOS", token, linea, columna)
     token = " "
     if cadena[index] == "*":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "/":
             token += cadena[index]
             #EscribirToken("FIN COMENTARIO", token)
             index += 1
+            columna += 1
         else:
-            EscribirToken("MULTIPLICACION", token)
+            EscribirToken("MULTIPLICACION", token, linea, columna)
     token = " "
     if cadena[index] == "/":
         token += cadena[index]
         index += 1
+        columna += 1
         hecho = 0
         if cadena[index] == "/":
             token += cadena[index]
             #EscribirToken("COMENTARIO SENCILLO", token)
             while cadena[index] != "\n":
                 index += 1
+                columna += 1
         elif cadena[index] == "*":
             token += cadena[index]
             #EscribirToken("INICIO COMENTARIO", token)
             while hecho == 0:
                 index += 1
+                columna += 1
                 if cadena[index] == "*":
                     token = ""
                     token += cadena[index]
                     index += 1
+                    columna += 1
                     if cadena[index] == "/":
                         token += cadena[index]
                         #EscribirToken("FIN COMENTARIO", token)
                         index += 1
+                        columna += 1
                         hecho = 1
         else:
-            EscribirToken("DIVISION", token)
+            EscribirToken("DIVISION", token, linea, columna)
     token = " "
     if cadena[index] == "%":
         token += cadena[index]
         index += 1
-        EscribirToken("RESIDUO", token)
+        columna += 1
+        EscribirToken("RESIDUO", token, linea, columna)
 
 
 def Menor():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == "<":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("MENOR IGUAL", token)
+            EscribirToken("MENOR IGUAL", token, linea, columna)
             index += 1
+            columna += 1
         else:
-            EscribirToken("MENOR", token)
+            EscribirToken("MENOR", token, linea, columna)
 
 
 def Mayor():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == ">":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("MAYOR IGUAL", token)
+            EscribirToken("MAYOR IGUAL", token, linea, columna)
             index += 1
+            columna += 1
         else:
-            EscribirToken("MAYOR", token)
+            EscribirToken("MAYOR", token, linea, columna)
 
 
 def Igualdad():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == "=":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("COMPARADOR", token)
+            EscribirToken("COMPARADOR", token, linea, columna)
             index += 1
+            columna += 1
         else:
-            EscribirError("Se esperaba un =", token)
+            EscribirError("Se esperaba un =", token, linea, columna)
 
 
 def Diferente():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == "!":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("DIFERENTE", token)
+            EscribirToken("DIFERENTE", token, linea, columna)
             index += 1
+            columna += 1
         else:
-            EscribirError("Se esperaba un =", token)
+            EscribirError("Se esperaba un =", token, linea, columna)
 
 
 def Asignacion():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == ":":
         token += cadena[index]
         index += 1
+        columna += 1
         if cadena[index] == "=":
             token += cadena[index]
-            EscribirToken("ASIGNACION", token)
+            EscribirToken("ASIGNACION", token, linea, columna)
             index += 1
+            columna += 1
         else:
-            EscribirError("Se esperaba un =", token)
+            EscribirError("Se esperaba un =", token, linea, columna)
 
 
 def Parentesis():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == "(":
         token += cadena[index]
-        EscribirToken("PARENTESIS IZQ", token)
+        EscribirToken("PARENTESIS IZQ", token, linea, columna)
     elif cadena[index] == ")":
         token += cadena[index]
-        EscribirToken("PARENTESIS DER", token)
+        EscribirToken("PARENTESIS DER", token, linea, columna)
     index += 1
+    columna += 1
 
 
 def Llaves():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == "{":
         token += cadena[index]
-        EscribirToken("LLAVE IZQ", token)
+        EscribirToken("LLAVE IZQ", token, linea, columna)
     elif cadena[index] == "}":
         token += cadena[index]
-        EscribirToken("LLAVE DER", token)
+        EscribirToken("LLAVE DER", token, linea, columna)
     index += 1
+    columna += 1
 
 def Puntos():
     global token
     global index
+    global columna
+    global linea
     token = " "
     if cadena[index] == ".":
         token += cadena[index]
-        index += 1
-        EscribirToken("PUNTO", token)
+        EscribirToken("PUNTO", token, linea, columna)
     if cadena[index] == ",":
         token += cadena[index]
-        index += 1
-        EscribirToken("COMA", token)
+        EscribirToken("COMA", token, linea, columna)
     if cadena[index] == ";":
         token += cadena[index]
-        index += 1
-        EscribirToken("PUNTOYCOMA", token)
+        EscribirToken("PUNTOYCOMA", token, linea, columna)
+    index += 1
+    columna += 1
 
 while index < len(cadena):
+    entrar = 0
+    if cadena[index] == "\n":
+        linea += 1
+        columna = 1
     entrar = 0
     if cadena[index].isdigit():
         Numero()
